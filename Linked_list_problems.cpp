@@ -60,21 +60,39 @@ void GetNth(Node* head , int index)
     
     
 }
-void InsertNth(Node* head , int index , int data){
+void InsertNth(Node*& head, int index, int data) {
+    // Handle index 0: insert at the head
+    if (index == 0) {
+        Node* new_node = create_node(data);
+        new_node->next = head;
+        head = new_node;
+        return;
+    }
+
     Node* temp = head;
-    
-    int count = 1;
-    while (count!=index)
-    {
+    int count = 0;
+
+   
+    while (temp != nullptr && count < index - 1) {
         temp = temp->next;
         count++;
-    } 
-    Node* current = temp;
-    Node* new_node = create_node(data);
-    temp->next = new_node;
-    new_node->next = current->next->next;
+    }
+
     
+    if (temp == nullptr) {
+        std::cerr << "Index out of bounds\n";
+        return;
+    }
+
+    
+    Node* new_node = create_node(data);
+    new_node->next = temp->next;
+    temp->next = new_node;
 }
+
+   // new_node->next = temp->next->next;
+    
+
 
 
 

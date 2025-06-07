@@ -61,7 +61,7 @@ void GetNth(Node* head , int index)
     
 }
 void InsertNth(Node*& head, int index, int data) {
-    // Handle index 0: insert at the head
+    
     if (index == 0) {
         Node* new_node = create_node(data);
         new_node->next = head;
@@ -90,8 +90,47 @@ void InsertNth(Node*& head, int index, int data) {
     temp->next = new_node;
 }
 
-   // new_node->next = temp->next->next;
+   
     
+
+
+
+
+void DeleteList(Node*& head){
+Node* temp = head;
+
+while(temp != nullptr)
+{
+    Node* current = temp;
+    temp = temp->next;
+    delete current;
+}
+head = nullptr;
+}
+
+
+
+void CopyList(Node* head){
+  if (head == nullptr) return;
+  Node* temp = head;
+  Node* copy_head = nullptr;
+  Node* copy_tail = nullptr;
+ while(temp != nullptr) {
+    Node* new_node = create_node(temp->data);
+    if (copy_head == nullptr) {
+        copy_head = new_node;
+        copy_tail = new_node;
+    } else {
+        copy_tail->next = new_node;
+        copy_tail = new_node;
+    }
+    cout << new_node->data << " ";
+    temp = temp->next;
+}
+  
+}
+
+
 
 
 
@@ -99,7 +138,6 @@ void InsertNth(Node*& head, int index, int data) {
 
 int main()
 {
-//create_a_list(10 , 20);
 Node* head = create_node(5);
 appendLast(head , 20);
 appendLast(head , 25);
@@ -107,5 +145,7 @@ InsertNth(head , 3 , 1);
 appendLast(head , 24);
 GetNth(head , 3);
 print(head);
+DeleteList(head);
+CopyList(head);
 
 }

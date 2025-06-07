@@ -110,8 +110,8 @@ head = nullptr;
 
 
 
-void CopyList(Node* head){
-  if (head == nullptr) return;
+Node* CopyList(Node* head){
+  if (head == nullptr) return nullptr;
   Node* temp = head;
   Node* copy_head = nullptr;
   Node* copy_tail = nullptr;
@@ -127,9 +127,74 @@ void CopyList(Node* head){
     cout << new_node->data << " ";
     temp = temp->next;
 }
-  
+  return copy_head;
 }
 
+
+
+Node* combineLists(Node*& head , Node*& second)
+{
+    Node* temp = head;
+    if(head == nullptr)
+    {
+    head = second;
+    return second;
+    }
+    
+    while(temp->next != nullptr){
+        temp = temp->next;
+      
+    }
+    temp->next = second;
+    second = nullptr;
+    return head;
+}
+
+
+void FrontBackSplit(Node* head)
+{
+    Node* fast = head;
+    Node* slow = head;
+    while(fast!= nullptr && fast->next != nullptr)
+    {
+        cout<<slow->data<<endl;
+        slow = slow->next;
+        cout<<fast->data<<endl;
+        fast = fast->next->next;
+        
+    }
+   Node* temp =  slow->next;
+   slow->next = nullptr;
+   
+   
+}
+
+void RemoveDublicates(Node* head)
+{
+    Node* temp = head;
+    while(temp->next != nullptr)
+    {
+        if(temp->data == temp->next->data)
+        {
+            Node* temp2 = temp->next;
+            temp->next = temp->next->next;
+            delete temp2;
+        }
+        else
+        {
+            temp = temp->next;
+        }
+    }
+}
+
+
+void MoveNode(Node*& head , Node*& start)
+{
+    if(start == nullptr)return;
+    Node* f_node = start;
+    start->next = head;
+    head = start;
+}
 
 
 
@@ -141,11 +206,19 @@ int main()
 Node* head = create_node(5);
 appendLast(head , 20);
 appendLast(head , 25);
+appendLast(head , 25);
+appendLast(head , 25);
+appendLast(head , 25);
 InsertNth(head , 3 , 1);
 appendLast(head , 24);
 GetNth(head , 3);
+RemoveDublicates(head);
 print(head);
+FrontBackSplit(head);
+Node* new_list = CopyList(head);
+MoveNode(head , new_list);
+combineLists(new_list , head);
 DeleteList(head);
-CopyList(head);
+
 
 }
